@@ -1,0 +1,170 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block title %}
+    Usuario
+{% endblock title %}
+{% block headerleft %}
+    Usuario
+{% endblock headerleft %}
+{% block headerright %}
+    Usuario
+{% endblock headerright %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Formulario usuario</h3>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Guardar datos</button>
+                        <a type="button" class="btn btn-secondary" href="{% url 'users:user' %}">Cancelar</a>
+                    </div>
+                </form>
+                {#                    <form method="post">#}
+                {#                        {% csrf_token %}#}
+                {#                        <div class="row">#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.document.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.document }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-archway"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.first_name.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.first_name }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-user-secret"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.last_name.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.last_name }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-user-secret"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class="row">#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.phone.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.phone }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-phone-volume"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.email.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.email }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-envelope"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="col">#}
+                {##}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class="row">#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.username.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.username }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-user"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.password_a.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.password_a }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-lock"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.password_b.label }}</label>#}
+                {#                                <div class="input-group mb-3">#}
+                {#                                    {{ form.password_b }}#}
+                {#                                    <div class="input-group-append">#}
+                {#                                        <div class="input-group-text">#}
+                {#                                            <span class="fas fa-lock"></span>#}
+                {#                                        </div>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                        </div>#}
+                {#                        <div class="row align-items-center">#}
+                {#                            <div class="col">#}
+                {#                                <label>Estado usuario</label>#}
+                {#                                <div class="icheck-primary">#}
+                {#                                    {{ form.is_active }}#}
+                {#                                    <label for="agreeTerms">#}
+                {#                                        {{ form.is_active.label }}#}
+                {#                                    </label>#}
+                {#                                </div>#}
+                {#                            </div>#}
+                {#                            <div class="col">#}
+                {#                                <label>{{ form.subsidiary.label }}</label>#}
+                {#                                {{ form.subsidiary }}#}
+                {#                            </div>#}
+                {#                            <!-- /.col -->#}
+                {#                            <div class="col">#}
+                {#                                <label class="mb-1">Funciones</label>#}
+                {#                                <div class="row">#}
+                {#                                    <div class="col">#}
+                {#                                        <button type="submit" class="btn btn-primary btn-block">Register</button>#}
+                {#                                    </div>#}
+                {#                                    <div class="col">#}
+                {#                                        <a href="{% url 'users:user' %}"#}
+                {#                                           class="btn btn-secondary btn-block">Cancelar</a>#}
+                {#                                    </div>#}
+                {#                                </div>#}
+                {##}
+                {#                            </div>#}
+                {#                            <!-- /.col -->#}
+                {#                        </div>#}
+                {#                    </form>#}
+                <!-- /.form-box -->
+            </div><!-- /.card -->
+        </div>
+    </div>
+
+{% endblock body %}
+
+{% block extrajs %}
+
+{% endblock extrajs %}

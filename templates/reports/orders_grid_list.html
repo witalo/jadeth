@@ -1,0 +1,53 @@
+<table class="table table-hover table-striped" id="tabla">
+        <tbody>
+        {% for o in order_set %}
+            <tr>
+                <td class="align-middle">
+                    <div class="icheck-primary">
+                        <input type="checkbox" value="" id="{{ o.id }}">
+                        <label for="{{ o.id }}"></label>
+                    </div>
+                </td>
+                <td class="mailbox-star text-center align-middle">{{ o.number }}</td>
+                <td class="mailbox-star text-center align-middle">{{ o.get_type_display }}</td>
+                <td class="mailbox-star text-center align-middle">{{ o.get_status_display }}</td>
+                <td class="mailbox-star text-center align-middle">{{ o.current|date:'d-m-Y' }}</td>
+                <td class="mailbox-name text-uppercase align-middle">
+                    {% if o.type == 'V' %}
+                        <a href=""> {{ o.client.names }}</a>
+                    {% elif o.type == 'C' %}
+                        <a href=""> {{ o.provider.names }}</a>
+                    {% elif o.type == 'M' %}
+                        <a href=""> {{ o.provider.names }}</a>
+                    {% elif o.type == 'R' %}
+                        <a href=""> {{ o.provider.names }}</a>
+                    {% elif o.type == 'E' %}
+                        <a href=""> {{ o.provider.names }}</a>
+                    {% elif o.type == 'S' %}
+                        <a href="">{{ o.client.names }}</a>
+                    {% else %}
+                        </a>-</a>
+                    {% endif %}
+                </td>
+                <td class="mailbox-total text-right align-middle"><span
+                        class="float-left text-muted">S/. </span>{{ o.total|safe }}</td>
+                <td class="mailbox-subject align-middle">
+                    {% for d in o.detail_set.all %}
+                        <ul class="todo-list ui-sortable" data-widget="todo-list">
+                            <li style="" class="p-1">
+                                <span class="bs-stepper-circle bg-primary small">{{ forloop.counter }}</span>
+                                <div class="d-inline ml-2">
+                                    {{ d.quantity|safe }}
+                                </div>
+
+                                <span class="text"> {{ d.product.name }}</span>
+
+                                <span class="float-right"> S/. {{ d.price|safe }}</span>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

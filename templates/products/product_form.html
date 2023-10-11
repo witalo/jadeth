@@ -1,0 +1,37 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block title %}
+    Cliente
+{% endblock title %}
+{% block headerleft %}
+    Cliente
+{% endblock headerleft %}
+{% block headerright %}
+    Cliente
+{% endblock headerright %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Formulario Product</h3>
+                </div>
+                <form method="post" id="form-product">
+                    {% csrf_token %}
+                    <div class="card-body">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Guardar datos</button>
+                        <a type="button" class="btn btn-secondary" href="{% url 'products:product' %}">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+{% block extrajs %}
+    <script src="">
+    </script>
+{% endblock extrajs %}

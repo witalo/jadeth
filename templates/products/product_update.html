@@ -1,0 +1,165 @@
+{% load static %}
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header bg-primary">
+            <h6 class="modal-title  text-white ">Actualizacion del producto</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <form id="FormProductUpdate" action="{% url 'products:product_update' %}"
+              method="POST">
+            {% csrf_token %}
+            <div class="modal-body p-2">
+                <div class="card border-primary">
+                    <div class="card-body p-3">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="name">Nombre Producto</label>
+                                    <input type="text" class="form-control" id="name" name="name"
+                                           placeholder="Ingrese nombre del producto" value="{{ product_obj.name }}"
+                                           required>
+                                    <input type="hidden" id="pk" name="pk" value="{{ product_obj.id }}" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="measures">Medidas del Producto</label>
+                                    <input type="text" class="form-control" id="measures" name="measures"
+                                           placeholder="Ancho(x)Largo(x)Alto" value="{{ product_obj.measures }}"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="description">Descripcion del Producto</label>
+                                    <textarea class="form-control" rows="3" id="description" name="description"
+                                              placeholder="Ingrese descripcion del producto...">{{ product_obj.description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group m-0">
+                                    <label>Marca Producto</label>
+                                    <select class="form-control select2" id="brand" name="brand" style="width: 100%;"
+                                            required>
+                                        {% for b in brand_set %}
+                                            {% if b.id == product_obj.product_brand.id %}
+                                                <option selected="selected" value="{{ b.id }}">{{ b.name }}</option>
+                                            {% else %}
+                                                <option value="{{ b.id }}">{{ b.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Modelo Producto</label>
+                                    <select class="form-control select2bs4" id="model" name="model" required
+                                            style="width: 100%;">
+                                        {% for m in model_set %}
+                                            {% if m.id == product_obj.product_model.id %}
+                                                <option selected="selected" value="{{ m.id }}">{{ m.name }}</option>
+                                            {% else %}
+                                                <option value="{{ m.id }}">{{ m.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="name">Color Producto</label>
+                                    <select class="select2" multiple="multiple" data-placeholder="Colores del producto"
+                                            style="width: 100%;" id="color" name="color" required>
+                                        {% for c in color_set %}
+                                            {% if c.name in product_obj.get_color %}
+                                                <option selected="selected" value="{{ c.id }}">{{ c.name }}</option>
+                                            {% else %}
+                                                <option value="{{ c.id }}">{{ c.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3 align-self-center">
+                                <div class="form-group m-0">
+                                    <div class="custom-control custom-radio col-md-6">
+                                        <input class="custom-control-input" type="radio" id="charger1"
+                                               name="charger" {% if product_obj.is_charger %}
+                                               checked {% endif %} value="1">
+                                        <label for="charger1" class="custom-control-label font-weight-normal">
+                                            Con/Cargador</label>
+                                    </div>
+                                    <div class="custom-control custom-radio col-md-6">
+                                        <input class="custom-control-input" type="radio" id="charger2"
+                                               name="charger" {% if not product_obj.is_charger %}
+                                               checked {% endif %} value="0">
+                                        <label for="charger2" class="custom-control-label font-weight-normal">
+                                            Sin/Cargador
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-3 align-self-center">
+                                <div class="form-group m-0">
+                                    <div class="custom-control custom-radio col-md-6">
+                                        <input class="custom-control-input" type="radio" id="add1"
+                                               name="add" {% if not product_obj.is_add %}
+                                               checked {% endif %} value="1">
+                                        <label for="add1" class="custom-control-label font-weight-normal">
+                                            N/F</label>
+                                    </div>
+                                    <div class="custom-control custom-radio col-md-6">
+                                        <input class="custom-control-input" type="radio" id="add2"
+                                               name="add" {% if not product_obj.is_add %}
+                                               checked {% endif %} value="0">
+                                        <label for="add2" class="custom-control-label font-weight-normal">
+                                            A/F
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {#                        <div class="row">#}
+                        {#                            <div class="col-sm-3 col-md-3 col-lg-3">#}
+                        {#                                <div class="form-group">#}
+                        {#                                    <label>Fecha Ingreso</label>#}
+                        {#                                        <input type="date" class="form-control" id="init"#}
+                        {#                                               name="init">#}
+                        {#                                </div>#}
+                        {#                            </div>#}
+                        {#                            <div class="col-sm-3 col-md-3 col-lg-3">#}
+                        {#                                <div class="form-group">#}
+                        {#                                    <label>Fecha Vencimiento</label>#}
+                        {#                                        <input type="date" class="form-control" id="end"#}
+                        {#                                               name="end">#}
+                        {#                                </div>#}
+                        {#                            </div>#}
+                        {#                            <div class="col-sm-6 col-md-6 col-lg-6 align-self-center">#}
+                        {#                                <div class="form-group">#}
+                        {##}
+                        {#                                </div>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer p-1">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button> &nbsp;
+                <button id="update-product" type="submit" class="btn btn-primary">Actualizar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/products/ProductUpdate.js' %}">
+</script>

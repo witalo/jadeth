@@ -1,0 +1,1 @@
+web: gunicorn jadeth.wsgi --log-file -

@@ -1,0 +1,65 @@
+<table class="table table-hover table-striped">
+    <tbody id="table_return_list">
+    {% for o in order_set %}
+        <tr style="width: 100%">
+            <td class="align-middle" style="width: 5%">
+                <div class="icheck-warning">
+                    <input type="checkbox" value="" id="{{ o.id }}">
+                    <label for="{{ o.id }}"></label>
+                </div>
+            </td>
+            <td class="mailbox-name align-middle" style="width: 6%">{{ o.get_type_display }}</td>
+            <td class="mailbox-name align-middle i-status" style="width: 9%">
+                {% if o.status == 'C' %}
+                    <i class="fas fa-star text-success"></i>
+                {% elif o.status == 'P' %}
+                    <i class="fas fa-star text-warning"></i>
+                {% else %}
+                    <i class="fas fa-star text-danger"></i>
+                {% endif %}
+                {{ o.get_status_display }}
+            </td>
+            <td class="mailbox-name align-middle" style="width: 6%">Nº {{ o.number }}</td>
+            <td class="mailbox-name align-middle" style="width: 10%">{{ o.current|date:'d-m-Y' }}</td>
+            <td class="mailbox-name align-middle" style="width: 10%">{{ o.create_at|date:'d-m-Y' }}</td>
+            <td class="mailbox-name align-middle" style="width: 20%"><a href="">{{ o.provider.names }}</a></td>
+            <td class="mailbox-subject align-middle" style="width: 30%">
+                {% for d in o.detail_set.all %}
+                    <div class="card m-0 collapsed-card">
+                        <div class="card-header">
+                            <h3 class="card-title">LISTADO DE PRODUCTOS</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" style="display: none;">
+                            <ul class="nav nav-pills flex-column">
+                                <li class="nav-item active">
+                                    <a href="#" class="nav-link p-1">
+                                        <div class="row">
+                                            <div class="col-md-6 text-left">
+                                                <i class="fas fa-chevron-circle-right"></i> {{ d.product.name }}
+                                            </div>
+                                            <div class="col-md-3 text-right">{{ d.quantity|safe }}</div>
+                                            <div class="col-md-3 text-right">{{ d.price|safe }}</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                {% empty %}
+                    <i class="fas fa-circle text-warning"></i> SIN DETALLE
+                {% endfor %}
+            </td>
+            <td class="mailbox-star align-middle" style="width: 4%">
+                <button type="button" class="btn btn-warning" onclick="showModalReturn({{ o.id }})"><i
+                        class="fas fa-check-circle text-white"></i></button>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

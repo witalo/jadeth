@@ -1,0 +1,192 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block title %}
+    Ordenes
+{% endblock title %}
+{% block headerleft %}
+    Reporte de ordenes
+{% endblock headerleft %}
+{% block headerright %}
+    Reporte de ordenes
+{% endblock headerright %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary w-100 mb-3" onclick="SearchOrder()">Consultar reporte</button>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Filtros de los tipos de ordenes</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="nav nav-pills flex-column m-2">
+                        <li class="nav-item active p-1">
+                            <div class="form-group">
+                                <label>Tipo de orden</label>
+                                <select class="form-control select2bs4" id="type" name="type">
+                                    {% for t in type_set %}
+                                        <option value="{{ t.0 }}">{{ t.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </li>
+                        <li class="nav-item p-1">
+                            <div class="form-group">
+                                <label>Fecha Inicio</label>
+                                <input type="date" class="form-control" id="init"
+                                       name="init" value="{{ date }}">
+                            </div>
+                        </li>
+                        <li class="nav-item p-1">
+                            <div class="form-group">
+                                <label>Fecha Termino</label>
+                                <input type="date" class="form-control" id="end"
+                                       name="end" value="{{ date }}">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Estado de las ordenes</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="customCheckbox2" checked="">
+                                    <label for="customCheckbox2" class="custom-control-label">Completado</label>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input custom-control-input-warning" type="checkbox"
+                                           id="customCheckbox2" checked="">
+                                    <label for="customCheckbox2" class="custom-control-label">Pendiente</label>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input custom-control-input-danger" type="checkbox"
+                                           id="customCheckbox2" checked="">
+                                    <label for="customCheckbox2" class="custom-control-label">Anulado</label>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-10">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Reporte de ordenes</h3>
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" id="buscador" placeholder="Buscar ...">
+                            <div class="input-group-append">
+                                <div class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-body p-0">
+                    <div class="mailbox-controls">
+
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i
+                                class="far fa-square"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+
+                        <button type="button" class="btn btn-default btn-sm">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <div class="float-right">
+                            <span class="item-count">{{ count }}</span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="table-responsive mailbox-messages" id="order_list">
+                         {% include "reports/orders_grid_list.html" %}
+                    </div>
+                </div>
+
+                <div class="card-footer p-0">
+                    <div class="mailbox-controls">
+
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                            <i class="far fa-square"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-sm">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+
+                        <button type="button" class="btn btn-default btn-sm">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <div class="float-right">
+                            <span class="item-count">{{ count }}</span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock body %}
+
+{% block extrajs %}
+    <script type="text/javascript" src="{% static 'js/reports/ReportOrder.js' %}">
+    </script>
+{% endblock extrajs %}
