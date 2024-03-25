@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-pv&^w6gcpku!4hf4pbtiqo^v(yb+0g3u0vs26!9c)70ira*4#1
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-# CSRF_TRUSTED_ORIGINS = ['https://jadeth.up.railway.app', 'https://*.127.0.0.1', 'jadeth.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://jadeth.up.railway.app', 'https://*.127.0.0.1', 'jadeth.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
