@@ -1,7 +1,7 @@
 $(document).ready(function () {
     new Autocomplete('#autocomplete-product', {
         search: input => {
-            const url = `/products/search_product/?search=${encodeURI(input.toUpperCase())}`
+            const url = `/products/search_products/?search=${encodeURI(input.toUpperCase())}`
 
             return new Promise(resolve => {
                 if (input.length < 3) {

@@ -76,3 +76,11 @@ function showModalReturn(n) {
         }
     });
 };
+
+function DeleteItem(d) {
+    if (parseInt(d) > 0) {
+      let rows = $('tbody#order_detail').find("tr[pk=" + d + "]")
+        rows.remove();
+        SumDetail()
+    }
+}

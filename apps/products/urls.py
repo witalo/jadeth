@@ -2,7 +2,7 @@ from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from apps.products.views import ListProduct, CreateProduct, UpdateProduct, DeleteProduct, modal_product_create, \
     product_create, product_update, get_model_by_brand, modal_product_update, store_create, \
-    modal_store_create, modal_store_update, store_update, search_product
+    modal_store_create, modal_store_update, store_update, search_product, search_products
 
 urlpatterns = [
     path('product/', login_required(ListProduct.as_view()), name='product'),
@@ -18,6 +18,7 @@ urlpatterns = [
     path('modal_store_create/', login_required(modal_store_create), name='modal_store_create'),
     path('modal_store_update/', login_required(modal_store_update), name='modal_store_update'),
     path('search_product/', login_required(search_product), name='search_product'),
+    path('search_products/', login_required(search_products), name='search_products'),
     path('store_create/', login_required(store_create), name='store_create'),
     path('store_update/', login_required(store_update), name='store_update')
 ]

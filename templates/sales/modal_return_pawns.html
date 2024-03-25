@@ -33,7 +33,8 @@
                         <div class="col-sm-3 col-md-3 col-lg-3">
                             <div class="form-group">
                                 <label for="measures">Codigo</label>
-                                <input type="text" class="form-control" id="code" name="code" placeholder="Codigo ..." value="">
+                                <input type="text" class="form-control" id="code" name="code" placeholder="Codigo ..."
+                                       value="">
                             </div>
                         </div>
                     </div>
@@ -68,41 +69,47 @@
                                 <tr class="text-center text-warning text-uppercase" style="width: 100%">
                                     <th style="width: 5%">Nº</th>
                                     <th style="width: 12%">Cantidad</th>
-                                    <th style="width: 47%">Descripcion</th>
+                                    <th style="width: 37%">Descripcion</th>
                                     <th style="width: 12%">Medida</th>
                                     <th style="width: 12%">Precio</th>
                                     <th style="width: 12%">Importe</th>
-                                    {#                            <th style="width: 10%">Eliminar</th>#}
+                                    <th style="width: 10%">Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody id="order_detail">
                                 {% for d in order_obj.detail_set.all %}
-                                    <tr class="p-0" product="{{ d.product.id }}" pk="{{ d.id }}"
-                                        i="{{ forloop.counter }}" old="{{ d.quantity }}">
-                                        <td class="align-middle item-number p-1 text-center"><span
-                                                class="bs-stepper-circle bg-primary">{{ forloop.counter }}</span></td>
-                                        <td class="align-middle item-quantity p-1"><input type="number" step="1" min="1"
-                                                                                          max="{{ d.quantity|safe }}"
-                                                                                          placeholder="0.00"
-                                                                                          class="form-control text-center value-quantity"
-                                                                                          disabled
-                                                                                          value="{{ d.quantity|safe }}"/>
-                                        </td>
-                                        <td class="align-middle item-description p-1 text-justify">{{ d.product.name }}</td>
-                                        <td class="align-middle item-unit p-1 text-center">UND
-                                        <td class="align-middle item-price p-1 text-right"><input type="number"
-                                                                                                  step="0.01"
-                                                                                                  placeholder="0.00"
-                                                                                                  class="form-control text-right value-price"
-                                                                                                  value="{{ d.price|safe }}"/>
-                                        </td>
-                                        <td class="align-middle item-amount p-1 text-right">
-                                            {{ d.amount|safe }}
-                                        </td>
-                                        {#                                <td class="align-middle item-delete p-1 text-center">#}
-                                        {#                                    <button type="button" class="btn btn-danger rounded"><i class="fa fa-trash-alt"></i></button>#}
-                                        {#                                </td>#}
-                                    </tr>
+                                    {% if d.is_enabled %}
+                                        <tr class="p-0" product="{{ d.product.id }}" pk="{{ d.id }}"
+                                            i="{{ forloop.counter }}" old="{{ d.quantity }}">
+                                            <td class="align-middle item-number p-1 text-center"><span
+                                                    class="bs-stepper-circle bg-primary">{{ forloop.counter }}</span>
+                                            </td>
+                                            <td class="align-middle item-quantity p-1"><input type="number" step="1"
+                                                                                              min="1"
+                                                                                              max="{{ d.quantity|safe }}"
+                                                                                              placeholder="0.00"
+                                                                                              class="form-control text-center value-quantity"
+                                                                                              disabled
+                                                                                              value="{{ d.quantity|safe }}"/>
+                                            </td>
+                                            <td class="align-middle item-description p-1 text-justify">{{ d.product.name }}</td>
+                                            <td class="align-middle item-unit p-1 text-center">UND
+                                            <td class="align-middle item-price p-1 text-right"><input type="number"
+                                                                                                      step="0.01"
+                                                                                                      placeholder="0.00"
+                                                                                                      class="form-control text-right value-price"
+                                                                                                      value="{{ d.price|safe }}"/>
+                                            </td>
+                                            <td class="align-middle item-amount p-1 text-right">
+                                                {{ d.amount|safe }}
+                                            </td>
+                                            <td class="align-middle item-delete p-1 text-center">
+                                                <button type="button" onclick="DeleteItem({{ d.id }})"
+                                                        class="btn btn-danger rounded"><i class="fa fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                                 </tbody>
                             </table>

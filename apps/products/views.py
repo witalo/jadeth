@@ -178,7 +178,28 @@ def search_product(request):
         search = request.GET.get('search')
         product = []
         if search:
-            product_set = Product.objects.filter(name__icontains=search)
+            product_set = Product.objects.filter(name__icontains=search, store__quantity__gte=0)
+            for p in product_set:
+                product.append({
+                    'pk': p.id,
+                    'name': p.name.upper(),
+                    'measure': p.measures,
+                    'color': p.get_color(),
+                    'date': p.date_end,
+                    'store': p.get_store(request.user),
+                })
+        return JsonResponse({
+            'status': True,
+            'product': product
+        })
+
+
+def search_products(request):
+    if request.method == 'GET':
+        search = request.GET.get('search')
+        product = []
+        if search:
+            product_set = Product.objects.filter(name__icontains=search, is_state=True)
             for p in product_set:
                 product.append({
                     'pk': p.id,

@@ -56,8 +56,15 @@
                 {% endfor %}
             </td>
             <td class="mailbox-star align-middle" style="width: 4%">
-                <button type="button" class="btn btn-warning" onclick="showModalReturn({{ o.id }})"><i
+                {% if o.status == 'C' %}
+                    Entregado
+                {% elif o.status == 'P' %}
+                     <button type="button" class="btn btn-warning" onclick="showModalReturn({{ o.id }})"><i
                         class="fas fa-check-circle text-white"></i></button>
+                {% else %}
+                    Entregado
+                {% endif %}
+
             </td>
         </tr>
     {% endfor %}

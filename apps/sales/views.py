@@ -541,9 +541,12 @@ def return_save(request):
         subsidiary_obj = user_obj.subsidiary
         pk = None
         order_obj = None
+        status = 'P'
         if order['order'] != '' and order['order'] != 0 and order['order'] != '0':
             pk = int(order['order'])
             order_obj = Order.objects.get(id=int(pk))
+            if decimal.Decimal(amount) == decimal.Decimal(order_obj.total()):
+                status = 'C'
         else:
             pk = None
             order_obj = None
@@ -551,17 +554,20 @@ def return_save(request):
             id=None,
             defaults={
                 "type": 'R',
-                "number": get_correlative(subsidiary=subsidiary_obj, types='V', order=None),
+                "number": get_correlative(subsidiary=subsidiary_obj, types='R', order=None),
                 "current": current,
                 "user": user_obj,
                 "provider": order_obj.provider,
                 "subsidiary": subsidiary_obj,
-                "status": 'C',
+                "status": status,
                 "relative": order_obj.id
             })
         if obj:
             for d in order['Detail']:
                 detail = d['detail']
+                det_obj = None
+                if int(detail) > 0:
+                    det_obj = Detail.objects.get(id=int(detail))
                 product = d['product']
                 product_obj = None
                 if product != '0' or product != '':
@@ -588,8 +594,10 @@ def return_save(request):
                         output_store(detail_obj=detail_obj, user_obj=user_obj)
                     else:
                         output_update_store(detail_obj=detail_obj, user_obj=user_obj, quantity=old)
-                    order_obj.status = 'C'
-                    order_obj.save()
+                    det_obj.is_enabled = True
+                    det_obj.save()
+                    product_obj.is_state = False
+                    product_obj.save()
             new_payment = {
                 'status': 'R',
                 'type': 'I',

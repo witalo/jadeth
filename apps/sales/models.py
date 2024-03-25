@@ -58,6 +58,7 @@ class Detail(models.Model):
     quantity = models.DecimalField('Cantidad', max_digits=10, decimal_places=2, default=0)
     old_quantity = models.DecimalField('Cantidad Anterior', max_digits=10, decimal_places=2, default=0)
     price = models.DecimalField('Precio', max_digits=10, decimal_places=2, default=0)
+    is_enabled = models.BooleanField(default=False)
 
     def amount(self):
         amount = round(decimal.Decimal(self.quantity * self.price), 2)
