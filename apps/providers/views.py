@@ -1,5 +1,6 @@
 from http import HTTPStatus
 
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -149,3 +150,22 @@ def provider_save(request):
                 'success': False,
                 'message': 'seleccione una persona',
             }, status=HTTPStatus.OK)
+
+
+def search_provider(request):
+    if request.method == 'GET':
+        search = request.GET.get('search')
+        d = []
+        if search:
+            provider_set = Provider.objects.filter(Q(first_name__icontains=search) | Q(last_name__icontains=search)).distinct()
+                                                   # order__detail__is_enabled=False).distinct()
+            for p in provider_set:
+                d.append({
+                    'pk': p.id,
+                    'names': str(p.first_name).upper() + ' ' + str(p.last_name).upper(),
+                    'document': p.document,
+                })
+        return JsonResponse({
+            'status': True,
+            'p': d
+        })

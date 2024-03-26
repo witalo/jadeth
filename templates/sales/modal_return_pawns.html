@@ -78,7 +78,7 @@
                                 </thead>
                                 <tbody id="order_detail">
                                 {% for d in order_obj.detail_set.all %}
-                                    {% if d.is_enabled %}
+                                    {% if not d.is_enabled %}
                                         <tr class="p-0" product="{{ d.product.id }}" pk="{{ d.id }}"
                                             i="{{ forloop.counter }}" old="{{ d.quantity }}">
                                             <td class="align-middle item-number p-1 text-center"><span

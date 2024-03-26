@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from apps.providers.views import ListProvider, CreateProvider, UpdateProvider, DeleteProvider, get_provider_by_document, \
-    get_provider, provider_save
+    get_provider, provider_save, search_provider
 
 urlpatterns = [
     path('provider/', login_required(ListProvider.as_view()), name='provider'),
@@ -10,6 +10,6 @@ urlpatterns = [
     path('provider_delete/<int:pk>/', login_required(DeleteProvider.as_view()), name='provider_delete'),
     path('get_provider_by_document/', login_required(get_provider_by_document), name='get_provider_by_document'),
     path('get_provider/', login_required(get_provider), name='get_provider'),
-
+    path('search_provider/', login_required(search_provider), name='search_provider'),
     path('provider_save/', login_required(provider_save), name='provider_save'),
 ]

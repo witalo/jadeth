@@ -545,8 +545,10 @@ def return_save(request):
         if order['order'] != '' and order['order'] != 0 and order['order'] != '0':
             pk = int(order['order'])
             order_obj = Order.objects.get(id=int(pk))
-            if decimal.Decimal(amount) == decimal.Decimal(order_obj.total()):
+            if decimal.Decimal(amount) >= decimal.Decimal(order_obj.total()):
                 status = 'C'
+                order_obj.status = status
+                order_obj.save()
         else:
             pk = None
             order_obj = None
@@ -587,7 +589,8 @@ def return_save(request):
                         "product": product_obj,
                         "quantity": decimal.Decimal(quantity),
                         "old_quantity": decimal.Decimal(old),
-                        "price": decimal.Decimal(price)
+                        "price": decimal.Decimal(price),
+                        "is_enabled": True
                     })
                 if detail_obj:
                     if detail_created:

@@ -178,7 +178,7 @@ def search_product(request):
         search = request.GET.get('search')
         product = []
         if search:
-            product_set = Product.objects.filter(name__icontains=search, store__quantity__gte=0)
+            product_set = Product.objects.filter(name__icontains=search, store__quantity__gt=0)
             for p in product_set:
                 product.append({
                     'pk': p.id,

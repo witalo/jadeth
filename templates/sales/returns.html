@@ -15,50 +15,67 @@
         <div class="col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Inbox</h3>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" id="search-dni" placeholder="Buscar DNI ...">
-                            <div class="input-group-append">
-                                <div class="btn btn-primary">
-                                    <i class="fas fa-search"></i>
+                    <div class="row">
+                        <div class="col-sm-4 p-0">
+                            <div id="autocomplete-provider" class="autocomplete text-primary">
+                                <input class="form-control autocomplete-input" id="search-provider"
+                                       name="search-provider"
+                                       placeholder="Buscar producto"/>
+                                <ul class="autocomplete-result-list"></ul>
+                            </div>
+{#                            <div class="input-group input-group-sm">#}
+{#                                <input type="text" class="form-control" id="search-names"#}
+{#                                       placeholder="Buscar nombres...">#}
+{#                                <div class="input-group-append">#}
+{#                                    <div class="btn btn-primary">#}
+{#                                        <i class="fas fa-search"></i>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+                        <div class="col-sm-6 p-0"></div>
+                        <div class="col-sm-2 p-0">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" id="search-dni" placeholder="Buscar dni...">
+                                <div class="input-group-append">
+                                    <div class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
                 <div class="card-body p-0">
                     <div class="mailbox-controls">
 
-                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i
-                                class="far fa-square"></i>
-                        </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm">
-                                <i class="far fa-trash-alt"></i>
-                            </button>
-                        </div>
-
-                        <button type="button" class="btn btn-default btn-sm">
-                            <i class="fas fa-sync-alt"></i>
-                        </button>
-                        <div class="float-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-
-                        </div>
+                        {#                        <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i#}
+                        {#                                class="far fa-square"></i>#}
+                        {#                        </button>#}
+                        {#                        <div class="btn-group">#}
+                        {#                            <button type="button" class="btn btn-default btn-sm">#}
+                        {#                                <i class="far fa-trash-alt"></i>#}
+                        {#                            </button>#}
+                        {#                        </div>#}
+                        {##}
+                        {#                        <button type="button" class="btn btn-default btn-sm">#}
+                        {#                            <i class="fas fa-sync-alt"></i>#}
+                        {#                        </button>#}
+                        {#                        <div class="float-right">#}
+                        {#                            <div class="btn-group">#}
+                        {#                                <button type="button" class="btn btn-default btn-sm">#}
+                        {#                                    <i class="fas fa-chevron-left"></i>#}
+                        {#                                </button>#}
+                        {#                                <button type="button" class="btn btn-default btn-sm">#}
+                        {#                                    <i class="fas fa-chevron-right"></i>#}
+                        {#                                </button>#}
+                        {#                            </div>#}
+                        {##}
+                        {#                        </div>#}
 
                     </div>
                     <div class="table-responsive mailbox-messages" id="return-list">
-                           {% include "sales/returns_grid_list.html" %}
+                        {% include "sales/returns_grid_list.html" %}
                     </div>
                 </div>
 
